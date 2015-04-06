@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="jquery.min.js"></script>
+  <script src="d3.min.js"></script>
+  <script src="underscore.js"></script>
+  <!-- <script src="stat_graph.js"></script> -->
+  <script src="stat_graph_contributors_util.js"></script>
+  <script src="stat_graph_contributors.js"></script>
+  <script src="stat_graph_contributors_graph.js"></script>
+    <link href="github.css" media="all" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+<div class='loading-graph'>
+  <div class='center'>
+    <h3 class='page-title'>
+      <i class='fa fa-spinner fa-spin'></i>
+      Building repository graph.
+    </h3>
+    <p class='slead'>Please wait a moment, this page will automatically refresh when ready.</p>
+  </div>
+</div>
+<div class='stat-graph hide'>
+  <div class='header clearfix'>
+    <h3 class='page-title' id='date_header'></h3>
+    <p class='light'>
+    </p>
+    <input id='brush_change' type='hidden'>
+  </div>
+  <div class='graphs'>
+    <div id='contributors-master'></div>
+    <div class='clearfix' id='contributors'>
+      <ol class='contributors-list contrib-data capped-cards clearfix'></ol>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+
+<script>
+  (function() {
+    $.ajax({
+      type: "GET",
+      url: "data.json",
+      success: function(data) {
+        var graph;
+        graph = new ContributorsStatGraph();
+        graph.init(data);
+        $("#brush_change").change(function() {
+          graph.change_date_header();
+          return graph.redraw_authors();
+        });
+        $(".stat-graph").fadeIn();
+        return $(".loading-graph").hide();
+      },
+      dataType: "json"
+    });
+  
+  }).call(this);
+</script>
+</body>
+</html>
+
+

@@ -1,0 +1,242 @@
+.container {
+    width: 980px;
+    margin-right: auto;
+    margin-left: auto
+}
+
+a {
+    color: #4183c4;
+    text-decoration: none;
+    background: none repeat scroll 0 0 transparent;
+}
+
+svg:not(:root) {
+    overflow: hidden;
+}
+
+.tint-box {
+    border-radius: 6px;
+    background: #f3f3f3;
+    position: relative;
+    margin-bottom: 10px
+}
+
+.contrib-data {
+    margin: 0 0 10px;
+    list-style: none;
+    padding: 0
+}
+
+#contributors .capped-card .avatar {
+    float: left;
+    width: 32px;
+    height: 32px;
+    margin-right: 5px
+}
+
+#contributors .capped-card h3 {
+    font-weight: normal
+}
+
+#contributors .capped-card .ameta {
+    display: block;
+    font-size: 12px;
+    color: #ccc
+}
+
+#contributors .capped-card .rank {
+    float: right;
+    color: #999;
+    font-size: 13px
+}
+
+#contributors .capped-card .cmt {
+    color: #999
+}
+
+#contributors .capped-card path {
+    fill: #f17f49
+}
+
+#contributors .capped-card .midlabel {
+    fill: #ccc
+}
+
+.d {
+    color: #bd2c00
+}
+
+.a {
+    color: #6cc644
+}
+
+.axis {
+    fill: #aaa;
+    font-size: 10px;
+}
+
+.axis line {
+    shape-rendering: crispedges;
+    stroke: #eee;
+}
+
+.axis path {
+    display: none
+}
+
+.graphs .area {
+    fill: #1db34f;
+    fill-opacity: 0.5
+}
+
+.graphs .dot.padded circle:hover {
+    fill: #4183c4
+}
+
+.graphs .selection rect {
+    fill: #333;
+    fill-opacity: 0.1;
+    stroke: #333;
+    stroke-width: 1px;
+    stroke-opacity: 0.4;
+    shape-rendering: crispedges;
+    stroke-dasharray: 3 3
+}
+
+.graph-filter h3 {
+    display: inline-block;
+    margin: 10px 0 0;
+    font-weight: 300;
+    font-size: 24px
+}
+
+.graph-filter .info {
+    margin-top: 5px;
+    margin-bottom: 20px;
+    color: #777
+}
+
+.graph-filter .select-menu {
+    float: right;
+    margin-top: 13px
+}
+
+h2.ghead:after {
+    content: ".";
+    height: 0;
+    display: block;
+    visibility: hidden;
+    clear: both
+}
+
+.graph-canvas .activity {
+    text-align: center;
+    width: 400px;
+    margin: 100px auto 0;
+    color: #444;
+    border-radius: 3px;
+    padding: 10px
+}
+
+.graph-canvas .error {
+    color: #900;
+    background: #feeaea;
+    padding: 10px;
+    border-radius: 3px
+}
+
+.graph-canvas .dots {
+    margin: 0 auto
+}
+
+.graph-canvas>.activity {
+    display: none
+}
+
+.graph-loading,
+.graph-error,
+.graph-no-usable-data,
+.graph-empty {
+    display: none
+}
+
+.graph-canvas.is-graph-loading>.activity,
+.graph-canvas.is-graph-without-usable-data>.activity,
+.graph-canvas.is-graph-empty>.activity {
+    display: block
+}
+
+li.capped-card {
+  background: #f7f7f7;
+  display: block;
+}
+
+.capped-cards {
+    list-style: none
+}
+
+.capped-cards .capped-card {
+    float: left;
+    width: 450px
+}
+
+.capped-card {
+    border-radius: 2px;
+    border: 1px solid #ddd;
+    list-style: none;
+    margin: 10px
+}
+
+.capped-card:before {
+    display: table;
+    content: ""
+}
+
+.capped-card:after {
+    display: table;
+    clear: both;
+    content: ""
+}
+
+.capped-card:nth-child(odd) {
+    margin-left: 0;
+    float: left;
+}
+
+.capped-card:nth-child(even) {
+    margin-right: 0;
+    float: right;
+}
+
+.capped-card h3 {
+    margin: 0;
+    border-bottom: 1px solid #eee;
+    line-height: 100%;
+    padding: 10px
+}
+
+.capped-card>p {
+    border-bottom: 1px solid #eee;
+    color: #999;
+    display: block;
+    font-size: 15px;
+    line-height: 100%;
+    margin: 0;
+    padding: 0 10px 10px
+}
+
+.capped-card-content {
+    background: #f7f7f7;
+    display: block
+}
+
+.capped-card-content:before {
+    display: table;
+    content: ""
+}
+
+.capped-card-content:after {
+    display: table;
+    clear: both;
+    content: ""
+}
