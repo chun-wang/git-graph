@@ -219,7 +219,7 @@
 
     ContributorsAuthorGraph.prototype.create_axes = function() {
       this.x_axis = d3.svg.axis().scale(this.x).orient("bottom").ticks(5);
-      return this.y_axis = d3.svg.axis().scale(this.y).orient("left").ticks(5);
+      return this.y_axis = d3.svg.axis().scale(this.y).orient("left").ticks(5).innerTickSize(-this.width).outerTickSize(0).tickPadding(10);
     };
 
     ContributorsAuthorGraph.prototype.create_area = function(x, y) {
