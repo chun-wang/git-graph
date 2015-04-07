@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+body {
+  font: 10px sans-serif;
+  margin: 0 auto;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.bar {
+  fill: orange;
+}
+
+.bar:hover {
+  fill: orangered ;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+
+  .axis path,
+  .axis line{
+    fill: none;
+    stroke: black;
+  }
+
+  .line{
+    fill: none;
+    stroke: blue;
+    stroke-width: 2px;
+  }
+
+  .tick text{
+    font-size: 12px;
+  }
+
+  .tick line{
+    opacity: 0.2;
+  }
+
+  .bar-chart {
+    width: 960px;
+    height: 500px;
+  }
+
+  .line-chart {
+    width: 960px;
+    height: 500px;
+  }
+
+  .container {
+    width: 960px;
+    margin: 0 auto;
+  }
+
+</style>
+<body>
+<div class="container">
+  <div class="bar-chart">
+  </div>
+  <div class="line-chart">
+  </div>
+</div>
+</body>
+<script src="d3.min.js"></script>
+<script src="d3.tip.js"></script>
+<script>
+(function(){
+var margin = {top: 40, right: 20, bottom: 30, left: 40},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var x = d3.time.scale.utc()
+    .range([0, width]).clamp(true);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom").tickFormat(d3.time.format("%m/%d"));
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left")
+
+var tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .offset([-10, 0])
+  .html(function(d) {
+    return "<strong>Frequency:</strong> <span style='color:red'>" + d.commit_number + "</span>";
+  })
+
+var svg = d3.select(".bar-chart").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+svg.call(tip);
+
+d3.tsv("data.tsv", type, function(error, data) {
+  x.domain(d3.extent(data, function(d) { return d.date; }));
+  y.domain([0, d3.max(data, function(d) { return d.commit_number; })]);
+
+  var dates = [];
+  data.forEach(function(data, index){
+      dates.push(data.date);
+  })
+  var tmp = x.range()
+  var barWidth = d3.scale.ordinal()
+    .domain(dates)
+    .rangeRoundBands(x.range(), 0.1)
+    .rangeBand();
+
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Commits");
+
+  svg.selectAll(".bar")
+      .data(data)
+    .enter().append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d) { 
+        var tmp = x(d.date);
+        return x(d.date); 
+      })
+      .attr("width", 10)
+      .attr("y", function(d) { return y(d.commit_number); })
+      .attr("height", function(d) { return height - y(d.commit_number); })
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide)
+      .on('click', function(data, index){
+        alert(data, index)
+      })
+
+});
+
+function type(d) {
+  d.commit_number = +d.commit_number;
+  d.date = new Date(d.date)
+  return d;
+}
+}).call(this);
+
+</script>
+
+<script>
+
+(function(){
+var margin = {top: 40, right: 20, bottom: 30, left: 40},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var dataset = [
+  {x: 0, y: 5},
+  {x: 1, y: 8},
+  {x: 2, y: 13},
+  {x: 3, y: 12},
+  {x: 4, y: 16},
+  {x: 5, y: 21},
+  {x: 6, y: 18},
+  {x: 7, y: 23},
+  {x: 8, y: 24},
+  {x: 9, y: 28},
+  {x: 10, y: 35},
+  {x: 11, y: 30},
+  {x: 12, y: 32},
+  {x: 13, y: 36},
+  {x: 14, y: 40},
+  {x: 15, y: 38},
+];
+
+var xScale = d3.scale.linear()
+    .domain([0, d3.max(dataset, function(d){ return d.x; })])
+    .range([0, width]);
+
+var yScale = d3.scale.linear()
+    .domain([0, d3.max(dataset, function(d){ return d.y; })])
+    .range([height, 0]);
+
+var xAxis = d3.svg.axis()
+    .scale(xScale)
+    .orient("bottom")
+    .innerTickSize(-height)
+    .outerTickSize(0)
+    .tickPadding(10);
+
+var yAxis = d3.svg.axis()
+    .scale(yScale)
+    .orient("left")
+    .innerTickSize(-width)
+    .outerTickSize(0)
+    .tickPadding(10);
+
+var line = d3.svg.line()
+    .x(function(d) { return xScale(d.x); })
+    .y(function(d) { return yScale(d.y); });
+
+var svg = d3.select(".line-chart").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");  
+
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis)
+
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+
+  svg.append("path")
+      .data([dataset])
+      .attr("class", "line")
+      .attr("d", line);
+
+  //var linepath = svg.selectAll("path");
+
+  //dataset.shift();
+  //linepath.transition().duration(5000).attr("d", line);
+
+  //var linepath = svg.selectAll("path");
+
+  //linepath.transition().duration(1000).style("fill", function(d) { return #FFF; });
+}).call(this);
+
+</script>
